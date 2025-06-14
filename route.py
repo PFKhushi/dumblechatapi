@@ -7,7 +7,6 @@ from chat import chat_dumbledore
 @app.route("/", methods=['POST'])
 def homepage():
     
-    key = ""
     dados = request.get_json()
     nome = None
     id = None
@@ -22,19 +21,17 @@ def homepage():
     if nome and content:
         resposta, session = chat_dumbledore(
             content=content,
-            user=nome,
-            key=key
+            user=nome
             )
-        return {"resposta": resposta, "session_id": session}
+        return {"resposta": resposta, "session_id": session, "key": key, "outro": [id, nome, content]}
     
     elif id and content:
-        resposta, session = chat_dumbledore(
+        resposta, session, key = chat_dumbledore(
             content=content,
-            session_id=id,
-            key=key
+            session_id=id
             )
-        return {"resposta": resposta, "session_id": session}
+        return {"resposta": resposta, "session_id": session, "key": key, "outro": [id, nome, content]}
     
     else:
-        return {"erro": "Faltam informações.", "fields": "\'content\', \'session\', \'nome\'"}        
+        return {"erro": "Faltam informações.", "fields": [content, session, nome]}        
 

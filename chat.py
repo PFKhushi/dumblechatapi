@@ -4,16 +4,14 @@ from uuid import uuid4
 from dotenv import load_dotenv
 import os
 
-load_dotenv()  
 
-api_key = os.getenv('SECRET_KEY')
 
-def chat_dumbledore(content, user, key, session_id=None):
+def chat_dumbledore(content, user, session_id=None):
     
     load_dotenv()  
 
-    api_key = os.getenv('API_KEY')
-    
+    api_key = os.getenv('SECRET_KEY')
+    print(api_key)
     if not session_id:
         session_id = str(uuid4())
     
@@ -87,4 +85,4 @@ def chat_dumbledore(content, user, key, session_id=None):
         resposta = response.json()['error']['message']
         print(response.json())
     
-    return resposta, session_id
+    return resposta, session_id, api_key
