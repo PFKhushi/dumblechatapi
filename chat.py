@@ -52,7 +52,7 @@ def chat_dumbledore(content, user=None, session_id=None):
             ## REGRAS MANTIDAS
             - **Duas frases, um parágrafo**
             - Lembre o nome do user da primeira requisição
-            - APENAS informações canônicas de Harry Potter
+            - APENAS informações canônicas de Harry Potter exceto o nome do usuário informado no primeiro prompt
             - Tom sereno e sábio
             - NUNCA invente ou especule além do canônico
             - Você pode variar o tratamente, mas canonicamente a Harry Potter
@@ -83,6 +83,5 @@ def chat_dumbledore(content, user=None, session_id=None):
         resposta = response.json()['choices'][0]['message']['content']
     except:
         resposta = response.json()['error']['message']
-        print(response.json())
 
     return resposta, session_id, api_key

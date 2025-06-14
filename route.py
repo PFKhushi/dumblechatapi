@@ -8,7 +8,6 @@ from chat import chat_dumbledore
 def homepage():
     
     dados = request.get_json()
-    print(dados)
     nome = None
     id = None
     content = None
@@ -24,15 +23,15 @@ def homepage():
             content=content,
             user=nome
             )
-        return {"resposta": resposta, "session_id": session, "key": key, "outro": {"session_id": id or "None id", "nome": nome or "None nome", "content": content or "None content"}}
+        return {"resposta": resposta, "session_id": session}
     
     elif id and content:
         resposta, session, key = chat_dumbledore(
             content=content,
             session_id=id
             )
-        return {"resposta": resposta, "session_id": session, "key": key, "outro": [{"session_id": id or "None id", "nome": nome or "None nome", "content": content or "None content"}]}
+        return {"resposta": resposta, "session_id": session}
     
     else:
-        return {"erro": "Faltam informações.", "fields": [id or "None id", nome or "None nome", content or "None content"]}        
+        return {"erro": "Faltam informações.", "fields": [id or "None id", nome or "None nome", content or "None content"]}
 
