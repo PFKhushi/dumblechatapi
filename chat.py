@@ -6,7 +6,7 @@ import os
 
 
 
-def chat_dumbledore(content, user, session_id=None):
+def chat_dumbledore(content, user=None, session_id=None):
     
     load_dotenv()  
 
@@ -84,5 +84,5 @@ def chat_dumbledore(content, user, session_id=None):
     except:
         resposta = response.json()['error']['message']
         print(response.json())
-    
+
     return resposta, session_id, api_key

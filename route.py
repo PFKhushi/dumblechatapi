@@ -8,30 +8,31 @@ from chat import chat_dumbledore
 def homepage():
     
     dados = request.get_json()
+    print(dados)
     nome = None
     id = None
     content = None
     if 'nome' in dados:
         nome = dados['nome']
-    if 'session' in dados: 
+    if 'session_id' in dados: 
         id = dados['session_id'] 
     if 'content' in dados:
         content = dados['content']
     
     if nome and content:
-        resposta, session = chat_dumbledore(
+        resposta, session, key = chat_dumbledore(
             content=content,
             user=nome
             )
-        return {"resposta": resposta, "session_id": session, "key": key, "outro": [id, nome, content]}
+        return {"resposta": resposta, "session_id": session, "key": key, "outro": {"session_id": id or "None id", "nome": nome or "None nome", "content": content or "None content"}}
     
     elif id and content:
         resposta, session, key = chat_dumbledore(
             content=content,
             session_id=id
             )
-        return {"resposta": resposta, "session_id": session, "key": key, "outro": [id, nome, content]}
+        return {"resposta": resposta, "session_id": session, "key": key, "outro": [{"session_id": id or "None id", "nome": nome or "None nome", "content": content or "None content"}]}
     
     else:
-        return {"erro": "Faltam informações.", "fields": [content, session, nome]}        
+        return {"erro": "Faltam informações.", "fields": [id or "None id", nome or "None nome", content or "None content"]}        
 
